@@ -1,0 +1,7 @@
+{
+  "name": "StoragePOC",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
