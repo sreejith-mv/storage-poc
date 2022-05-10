@@ -10,6 +10,7 @@ export class Message implements ModelBase {
   date: string;
   id: number;
   read: boolean;
+  message: string;
 
   public fromJson(json: any): Message {
     const message = new Message();
@@ -19,6 +20,7 @@ export class Message implements ModelBase {
     message.fromName = json.fromName;
     message.read = json.read;
     message.subject = json.subject;
+    message.message = json.message;
 
     return message;
   }
@@ -29,7 +31,8 @@ export class Message implements ModelBase {
       date: message.date,
       fromName: message.fromName,
       read: message.read,
-      subject: message.subject
+      subject: message.subject,
+      message: message.message
     };
   }
 }
