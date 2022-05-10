@@ -5,6 +5,7 @@ src/assets/i18n/*
 src/environments/*
 src/theme/market.scss
 www/
+.angular/
 
 # End of Custom ignores.
 
