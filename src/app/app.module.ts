@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProvidersModule } from './services/data-providers/providers.module';
 import { DatabaseAccessProvider } from './services/storage/database-access.provider';
 import { AES256 } from '@awesome-cordova-plugins/aes-256/ngx';
+import { MessageStore } from './stores/message.store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,7 @@ import { AES256 } from '@awesome-cordova-plugins/aes-256/ngx';
       // eslint-disable-next-line no-underscore-dangle
       driverOrder: [CordovaSQLiteDriver._driver, Drivers.IndexedDB]
     })],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AES256],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AES256, MessageStore],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

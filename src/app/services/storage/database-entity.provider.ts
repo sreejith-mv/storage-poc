@@ -32,7 +32,7 @@ export class DatabaseEntityProvider<T extends ModelBase> {
    * @return {*}  {Promise<T[]>}
    * @memberof DatabaseEntityProvider
    */
-  public async get(page?: number, limit?: number): Promise<T[]> {
+  public async list(page?: number, limit?: number): Promise<T[]> {
     let items = await this.params.databaseAccessProvider.get<T[]>(this.params.databaseAccessKey);
     if (items === undefined || items === null) {
       return [];
@@ -55,8 +55,8 @@ export class DatabaseEntityProvider<T extends ModelBase> {
    * @return {*}  {Promise<T>}
    * @memberof DatabaseEntityProvider
    */
-  public async getById(id: string): Promise<T> {
-    return (await this.get()).filter(a => a.dataKey !== id)[0];
+  public async get(id: string): Promise<T> {
+    return (await this.list()).filter(a => a.dataKey !== id)[0];
   }
 
   /**
@@ -89,7 +89,7 @@ export class DatabaseEntityProvider<T extends ModelBase> {
    * @memberof DatabaseEntityProvider
    */
   public async save(data: T): Promise<void> {
-    const all = (await this.get()).filter(a => a.dataKey !== data.dataKey);
+    const all = (await this.list()).filter(a => a.dataKey !== data.dataKey);
     all.push(data);
     this.params.databaseAccessProvider.set(this.params.databaseAccessKey, all);
   }
@@ -102,7 +102,7 @@ export class DatabaseEntityProvider<T extends ModelBase> {
    * @memberof DatabaseEntityProvider
    */
   public async remove(id: string): Promise<void> {
-    const all = (await this.get());
+    const all = (await this.list());
     const index = all.findIndex(s => s.dataKey === id);
     all.splice(index, 1);
     await this.reset(all);

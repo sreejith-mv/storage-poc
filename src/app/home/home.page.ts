@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Message } from '../models/message.model';
 import { MessageService } from '../services/message.service';
+import { MessageStore } from '../stores/message.store';
 
 @Component({
   selector: 'app-home',
@@ -9,22 +10,10 @@ import { MessageService } from '../services/message.service';
 })
 export class HomePage {
 
-  public messages: Message[] = [];
+  constructor(public store: MessageStore) { }
 
-  constructor(private messageSrv: MessageService) {
-    this.messageSrv.getMessages().then(data => {
-      this.messages = data;
-    });
+  async refresh(ev) {
+    await this.store.getMessages();
+    ev.detail.complete();
   }
-
-  refresh(ev) {
-    setTimeout(() => {
-      ev.detail.complete();
-    }, 3000);
-  }
-
-  async getMessages() {
-
-  }
-
 }

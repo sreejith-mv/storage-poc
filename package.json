@@ -32,6 +32,8 @@
     "cordova-plugin-aes256-encryption": "2.0.1",
     "cordova-sqlite-storage": "6.0.0",
     "localforage-cordovasqlitedriver": "1.8.0",
+    "mobx": "6.5.0",
+    "mobx-angular": "4.5.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

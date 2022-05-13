@@ -20,24 +20,28 @@ export class MessageService {
           await this.messageDbProvider.reset(reapData);
           resolve(reapData);
         }, async () => {
-          const data = await this.messageDbProvider.get();
+          const data = await this.messageDbProvider.list();
           resolve(data);
         });
       });
     }
-    return this.messageDbProvider.get();
+    return this.messageDbProvider.list();
+  }
+
+  public async getMessagesFromDB(): Promise<Message[]> {
+    return await this.messageDbProvider.list();
   }
 
   public async getMessageById(dataKey: string): Promise<Message> {
-    return await this.messageDbProvider.getById(dataKey);
+    return await this.messageDbProvider.get(dataKey);
   }
 
   public async updateMessage(message: Message): Promise<void> {
     return await this.messageDbProvider.save(message);
   }
 
-  public async removeMessage(message: Message): Promise<void> {
-    return await this.messageDbProvider.remove(message.dataKey);
+  public async removeMessage(dataKey: string): Promise<void> {
+    return await this.messageDbProvider.remove(dataKey);
   }
 
   public async clearMessage(): Promise<void> {

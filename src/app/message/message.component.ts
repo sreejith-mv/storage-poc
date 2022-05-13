@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Message } from '../models/message.model';
 import { MessageService } from '../services/message.service';
+import { MessageStore } from '../stores/message.store';
 
 @Component({
   selector: 'app-message',
@@ -11,23 +12,19 @@ import { MessageService } from '../services/message.service';
 export class MessageComponent implements OnInit {
   @Input() message: Message;
 
-  constructor(private navCtrl: NavController, private messageSrv: MessageService) { }
+  constructor(private navCtrl: NavController, public store: MessageStore) { }
 
   ngOnInit() { }
 
   async gotoDetailPage(message: Message) {
     message.read = true;
-    await this.messageSrv.updateMessage(message);
+    await this.store.updateMessage(message);
     this.navCtrl.navigateForward(`/message/${message.id}`);
-  }
-
-  async delete(message: Message) {
-    await this.messageSrv.removeMessage(message);
   }
 
   async unread(message: Message) {
     message.read = false;
-    await this.messageSrv.updateMessage(message);
+    await this.store.updateMessage(message);
   }
 
   isIos() {
